@@ -20,5 +20,8 @@ Route::middleware('auth')->prefix('user')->name('user:')->group(function () {
     Route::get('', \App\Http\Controllers\UserIndexController::class)->name('index');
     Route::get('{id}', \App\Http\Controllers\UserEditController::class)->name('edit');
 });
+Route::middleware('auth')->prefix('calendar')->name('calendar:')->group(function () {
+    Route::get('', \App\Http\Controllers\CalendarIndexController::class)->name('index');
+});
 
 require __DIR__ . '/auth.php';
