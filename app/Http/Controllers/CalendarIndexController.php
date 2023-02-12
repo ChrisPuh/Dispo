@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Calendar\Calendar;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 
@@ -13,23 +14,13 @@ class CalendarIndexController extends Controller
     {
         $year = 2023;
         $month = 2;
+        $day = Carbon::today()->day;
 
-        $startOfMonth = CarbonImmutable::create($year, $month, 1);
-        $endOfMonth = $startOfMonth->endOfMonth();
-
-        $startOfWeek = $startOfMonth->startOfWeek();
-        $endOfWeek = $endOfMonth->endOfWeek();
-
-        $weeks = collect($startOfWeek->toPeriod($endOfWeek)->toArray())
-            ->map(fn($date) => [
-                'path' => $date->format('/Y/m/d'),
-                'day' => $date,
-            ])->chunk(7);
-
+        $calendar = new Calendar(year: $year, month: $month, day: $day);
 
 
         return view('calendar.index', [
-            'calendar' => $weeks,
+            'calendar' => $calendar->buildMonth(),
             'today' => Carbon::now(),
             'days' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         ]);

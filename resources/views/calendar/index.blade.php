@@ -101,11 +101,14 @@
                 >
                     @foreach ($week as $day)
                         <div
-                            class="border @if($day['day']->isToday()) bg-red-600 @endif rounded p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ">
+                            class="border @if($day['selected']) bg-slate-200 @endif rounded p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ">
                             <div
                                 class="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 mx-auto overflow-hidden">
                                 <div class="top h-5 w-full">
-                                    <span class="text-gray-500">{{ $day['day']->day }} </span>
+                                    <span
+                                        class="{{ ! $day['withinMonth'] ? 'text-slate-300' : 'text-slate-700' }}">
+                                        {{ $day['day']->day }}
+                                    </span>
                                 </div>
                                 <div class="bottom flex-grow h-30 py-1 w-full cursor-pointer">
                                     <div
@@ -137,9 +140,6 @@
             @endforeach
         </div>
     </div>
-
-
-
 
 
     <!-- events -->
