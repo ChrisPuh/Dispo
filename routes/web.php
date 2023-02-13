@@ -24,4 +24,8 @@ Route::middleware('auth')->prefix('calendar')->name('calendar:')->group(function
     Route::get('', \App\Http\Controllers\CalendarIndexController::class)->name('index');
 });
 
+Route::middleware('auth')->prefix('customer')->name('customer:')->group(function () {
+    Route::get('', \App\Http\Controllers\CustomerIndexController::class)->name('index');
+});
+
 require __DIR__ . '/auth.php';
