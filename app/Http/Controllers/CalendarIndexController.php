@@ -22,7 +22,7 @@ class CalendarIndexController extends Controller
         return view('calendar.index', [
             'calendar' => $calendar->buildMonth(),
             'today' => Carbon::now(),
-            'days' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            'days' => $calendar->getDayOfaWeek(),
         ]);
     }
 }

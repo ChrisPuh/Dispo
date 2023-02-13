@@ -2,7 +2,6 @@
 
 namespace App\Calendar;
 
-use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 
 class Calendar
@@ -28,10 +27,16 @@ class Calendar
             ->map(fn($date) => [
                 'path' => $date->format('/Y/m/d'),
                 'withinMonth' => $date->between($startOfMonth, $endOfMonth),
+                'isToday' =>$this->day && $date->isToday(),
                 'selected' => $this->day && $date->is($selectedDate),
 
                 'day' => $date,
-            ])->chunk(7);
+            ])->chunk(count($this->getDayOfaWeek()));
+    }
+
+    public function getDayOfaWeek():array
+    {
+        return [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     }
 
 

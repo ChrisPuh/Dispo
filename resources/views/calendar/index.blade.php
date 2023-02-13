@@ -70,15 +70,14 @@
 
     </x-slot:actionbuttons>
     <!--Calendar -->
-    <div class="md:p-8 p-5 dark:bg-slate-800 bg-white rounded-t">
 
-        <div class="w-full grid grid-cols-7 justify-center">
+        <div class="overflow-auto w-full grid grid-cols-7 justify-center">
             @foreach($days as $day)
                 <p
                     class="
                           text-base
                           font-medium
-                          text-center text-slate-800
+                          text-center text-slate-50
                           dark:text-slate-100
                         "
                 >
@@ -101,13 +100,17 @@
                 >
                     @foreach ($week as $day)
                         <div
-                            class="border @if($day['selected']) bg-slate-200 @endif rounded p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ">
+                            class="border @if($day['isToday']) bg-slate-500 @endif rounded p-1 h-40 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-x-auto transition cursor-pointer duration-500 ease hover:bg-gray-300 ">
                             <div
                                 class="flex flex-col h-40 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 mx-auto overflow-hidden">
-                                <div class="top h-5 w-full">
+                                <div class="top h-5 my-1 w-full">
                                     <span
-                                        class="{{ ! $day['withinMonth'] ? 'text-slate-300' : 'text-slate-700' }}">
+                                        class="
+                                        {{ ! $day['withinMonth'] ? 'text-slate-500' : 'text-slate-50' }}
+                                        {{ $day['selected'] ? 'bg-red-500 p-1 rounded-full' : '' }}
+                                        ">
                                         {{ $day['day']->day }}
+
                                     </span>
                                 </div>
                                 <div class="bottom flex-grow h-30 py-1 w-full cursor-pointer">
@@ -145,6 +148,7 @@
     <!-- events -->
     <div
         class="
+        hidden
             md:py-8
             py-5
             md:px-16
@@ -258,7 +262,6 @@
         </div>
     </div>
 
-    </div>
 
 
 </x-crud-layout>
